@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>เมนูสมาชิก | โลกสัตว์น่ารู้</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@600;700&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">ข้ามไปเนื้อหา</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>โลกสัตว์น่ารู้</a>
+      <nav aria-label="เมนูหลัก">
+        <ul class="nav">
+          <li><a class="nav-home" href="index.html">หน้าแรก</a></li>
+          <li><a href="animals.html">สัตว์น่ารู้</a></li>
+          <li><a class="nav-cta" href="member.html" aria-current="page">เมนูสมาชิก</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="member" id="main">
+    <div class="wrap">
+
+      <!-- เมื่อยังไม่พบข้อมูลสมาชิกในเบราว์เซอร์นี้ -->
+      <section id="guest" hidden>
+        <h1>เมนูนี้สำหรับสมาชิก</h1>
+        <p class="notice">กรุณาเข้าสู่ระบบ หรือสมัครสมาชิกใหม่ แล้วเมนูจะเปิดให้ทันที</p>
+        <a class="btn btn-sun" href="login.html">เข้าสู่ระบบ</a>
+        <a class="btn btn-line" href="register.html">สมัครสมาชิกฟรี</a>
+      </section>
+
+      <!-- เมนูสมาชิก -->
+      <section id="home" hidden>
+        <div class="member-head">
+          <h1>สวัสดี คุณ<span id="who"></span></h1>
+          <p class="member-id">รหัสสมาชิก <span id="mid"></span></p>
+        </div>
+
+        <ul class="menu-list">
+          <li class="menu-item">
+            <a href="quiz.html">
+              <span class="menu-dot" aria-hidden="true"></span>
+              <span>
+                <span class="menu-title">แบบทดสอบสัตว์</span>
+                <span class="menu-desc">ตอบ 6 ข้อ ดูว่ารู้เรื่องสัตว์แค่ไหน</span>
+              </span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="animals.html">
+              <span class="menu-dot" aria-hidden="true"></span>
+              <span>
+                <span class="menu-title">ดูสัตว์ทั้งหมด</span>
+                <span class="menu-desc">ภาพถ่ายและความรู้ของสัตว์ทุกตัว</span>
+              </span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="#daily">
+              <span class="menu-dot" aria-hidden="true"></span>
+              <span>
+                <span class="menu-title">เรื่องน่ารู้ประจำวัน</span>
+                <span class="menu-desc">เรื่องสัตว์ใหม่ทุกวัน อ่านได้ด้านล่าง</span>
+              </span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="index.html">
+              <span class="menu-dot" aria-hidden="true"></span>
+              <span>
+                <span class="menu-title">กลับหน้าแรก</span>
+                <span class="menu-desc">ไปที่หน้าแรกของเว็บ</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+
+        <section class="daily" id="daily" aria-labelledby="daily-title">
+          <h2 id="daily-title">เรื่องน่ารู้ประจำวันนี้</h2>
+          <p class="text" id="daily-text"></p>
+        </section>
+
+        <p class="switch"><button class="link-quiet" type="button" id="leave">ออกจากระบบ</button></p>
+      </section>
+
+      <noscript><p class="notice">หน้านี้ต้องเปิดใช้ JavaScript ในเบราว์เซอร์</p></noscript>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="copy">© 2026 โลกสัตว์น่ารู้ สงวนลิขสิทธิ์</p>
+    </div>
+  </footer>
+
+  <script src="member.js"></script>
+  <script>
+    var m = window.Member.get();
+    var guest = document.getElementById("guest");
+    var home = document.getElementById("home");
+
+    if (!m) {
+      guest.hidden = false;
+    } else {
+      home.hidden = false;
+      // ใช้ textContent เพื่อไม่ให้ชื่อที่กรอกถูกตีความเป็นโค้ด HTML
+      document.getElementById("who").textContent = m.name;
+      document.getElementById("mid").textContent = m.memberId;
+
+      var facts = [
+        "ปลาหมึกยักษ์มีหัวใจ 3 ดวง",
+        "ยีราฟมีกระดูกคอ 7 ข้อ เท่ากับคนเรา เพียงแต่แต่ละข้อยาวกว่ามาก",
+        "ฮัมมิงเบิร์ดเป็นนกที่บินถอยหลังได้",
+        "นากทะเลนอนหลับโดยจับมือกันไว้ เพื่อไม่ให้ลอยห่างจากกัน",
+        "วอมแบตขับถ่ายเป็นก้อนทรงลูกบาศก์",
+        "โคอาลานอนวันละประมาณ 18 ถึง 22 ชั่วโมง"
+      ];
+      var day = Math.floor(Date.now() / 86400000);
+      document.getElementById("daily-text").textContent = facts[day % facts.length];
+
+      document.getElementById("leave").addEventListener("click", function () {
+        window.Member.clear();
+        location.href = "index.html";
+      });
+    }
+  </script>
+</body>
+</html>
