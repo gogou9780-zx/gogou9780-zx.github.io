@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>โลกสัตว์น่ารู้ | เรียนรู้เรื่องสัตว์ต่าง ๆ</title>
+  <meta name="description" content="เว็บความรู้เรื่องสัตว์ต่าง ๆ อ่านง่าย สนุก เหมาะกับทุกวัย">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@600;700&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#animals">ข้ามไปเนื้อหา</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>โลกสัตว์น่ารู้</a>
+      <nav aria-label="เมนูหลัก">
+        <ul class="nav">
+          <li><a class="nav-home" href="index.html" aria-current="page">หน้าแรก</a></li>
+          <li><a href="animals.html">สัตว์น่ารู้</a></li>
+          <li><a class="nav-cta" href="register.html">สมัครสมาชิก</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div>
+          <h1>สัตว์ทุกชนิดมีเรื่องให้ทึ่ง มาดูกัน</h1>
+          <p class="lead">ภาพถ่ายสัตว์จริงกับความรู้สั้น ๆ อ่านจบในไม่กี่นาที ตั้งแต่ช้างตัวโตไปจนถึงเพนกวินที่บินไม่ได้</p>
+          <div class="hero-actions">
+            <a class="btn btn-sun" href="animals.html">ดูสัตว์ทั้งหมด</a>
+            <a class="btn btn-line" href="register.html" data-guest-only>สมัครสมาชิกฟรี</a>
+          </div>
+        </div>
+
+        <div class="art">
+          <span class="sun" aria-hidden="true"></span>
+          <figure class="p-main">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Giant_Panda_2004-03-2.jpg?width=900"
+                 data-fallback="assets/panda.svg" alt="ภาพถ่ายแพนด้ายักษ์" width="540" height="540">
+          </figure>
+          <figure class="p-round">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Vulpes_vulpes_ssp_fulvus.jpg?width=600"
+                 data-fallback="assets/fox.svg" alt="ภาพถ่ายสุนัขจิ้งจอกแดง" width="400" height="400">
+          </figure>
+          <figure class="p-small">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Emperor_Penguin_Manchot_empereur.jpg?width=500"
+                 data-fallback="assets/penguin.svg" alt="ภาพถ่ายเพนกวินจักรพรรดิ" width="300" height="300">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery" id="animals">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>สัตว์เด่นที่ควรรู้จัก</h2>
+          <p>คัดมา 6 ชนิด ส่วนสัตว์ทั้งหมด 20 ชนิดดูได้ที่หน้าสัตว์น่ารู้</p>
+        </div>
+
+        <div class="animal-grid">
+          <article class="animal" data-type="mammal">
+            <figure>
+              <img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Elephantidae_Loxodonta_africana_4.2.jpg?width=700"
+                   data-fallback="assets/elephant.svg" alt="ภาพถ่ายช้างแอฟริกา" width="500" height="625">
+            </figure>
+            <h3>ช้าง</h3>
+            <p class="kind">สัตว์เลี้ยงลูกด้วยนม</p>
+            <p>ช้างแอฟริกาเป็นสัตว์บกที่ใหญ่ที่สุดในโลก งวงใช้ได้ทั้งหายใจ ดื่มน้ำ หยิบจับ และทักทายกัน ส่วนช้างไทยเป็นสัตว์ประจำชาติของไทย</p>
+          </article>
+
+          <article class="animal" data-type="bird">
+            <figure>
+              <img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Emperor_Penguin_Manchot_empereur.jpg?width=700"
+                   data-fallback="assets/penguin.svg" alt="ภาพถ่ายเพนกวินจักรพรรดิ" width="500" height="625">
+            </figure>
+            <h3>เพนกวิน</h3>
+            <p class="kind">นก</p>
+            <p>บินไม่ได้ แต่ว่ายน้ำเก่งมาก ใช้ปีกพายน้ำเหมือนครีบ ส่วนใหญ่อาศัยอยู่ในซีกโลกใต้</p>
+          </article>
+
+          <article class="animal" data-type="bird">
+            <figure>
+              <img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Barn_Owl,_Lancashire.jpg?width=700"
+                   data-fallback="assets/owl.svg" alt="ภาพถ่ายนกแสก" width="500" height="625">
+            </figure>
+            <h3>นกแสก</h3>
+            <p class="kind">นก</p>
+            <p>ลูกตาขยับไม่ได้ แต่หมุนหัวได้ไกลประมาณ 270 องศา และได้ยินเสียงเหยื่อได้แม่นแม้ในที่มืด</p>
+          </article>
+
+          <article class="animal" data-type="mammal">
+            <figure>
+              <img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Vulpes_vulpes_ssp_fulvus.jpg?width=700"
+                   data-fallback="assets/fox.svg" alt="ภาพถ่ายสุนัขจิ้งจอกแดง" width="500" height="625">
+            </figure>
+            <h3>สุนัขจิ้งจอกแดง</h3>
+            <p class="kind">สัตว์เลี้ยงลูกด้วยนม</p>
+            <p>หูไวมาก ได้ยินเสียงเหยื่อตัวเล็กที่เคลื่อนไหวอยู่ไกล ๆ และปรับตัวอยู่ได้ในหลายสภาพแวดล้อม</p>
+          </article>
+
+          <article class="animal" data-type="reptile">
+            <figure>
+              <img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Green_Sea_Turtle_grazing_seagrass.jpg?width=700"
+                   data-fallback="assets/turtle.svg" alt="ภาพถ่ายเต่าทะเลกำลังกินหญ้าทะเล" width="500" height="625">
+            </figure>
+            <h3>เต่าทะเล</h3>
+            <p class="kind">สัตว์เลื้อยคลาน</p>
+            <p>กระดองเป็นส่วนหนึ่งของโครงกระดูก ติดอยู่กับซี่โครงและกระดูกสันหลัง จึงถอดออกไม่ได้เหมือนเสื้อ</p>
+          </article>
+
+          <article class="animal" data-type="mammal">
+            <figure>
+              <img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Giant_Panda_2004-03-2.jpg?width=700"
+                   data-fallback="assets/panda.svg" alt="ภาพถ่ายแพนด้ายักษ์" width="500" height="625">
+            </figure>
+            <h3>แพนด้ายักษ์</h3>
+            <p class="kind">สัตว์เลี้ยงลูกด้วยนม</p>
+            <p>กินไผ่เป็นอาหารหลัก และใช้เวลากินหลายชั่วโมงต่อวัน พบตามธรรมชาติในประเทศจีน</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap more">
+      <a class="btn btn-moss" href="animals.html">ดูสัตว์ทั้งหมด 20 ชนิด</a>
+    </div>
+
+    <section class="facts">
+      <div class="wrap">
+        <div class="fact-panel">
+          <div>
+            <h2>รู้หรือไม่?</h2>
+            <p class="fact-text" id="fact" aria-live="polite">ปลาหมึกยักษ์มีหัวใจ 3 ดวง</p>
+          </div>
+          <button class="btn btn-ink" type="button" id="next-fact">สุ่มเรื่องใหม่</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="join" data-guest-only>
+      <div class="wrap">
+        <div>
+          <h2>อยากอ่านเรื่องสัตว์ใหม่ ๆ ก่อนใคร?</h2>
+          <p>สมัครสมาชิกฟรี เพื่อรับบทความและข่าวสารเกี่ยวกับสัตว์</p>
+        </div>
+        <a class="btn btn-sun" href="register.html">สมัครสมาชิก</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="copy">© 2026 โลกสัตว์น่ารู้ สงวนลิขสิทธิ์</p>
+      <details class="credits">
+        <summary>ที่มาของภาพถ่าย</summary>
+        <p>ภาพถ่ายทั้งหมดมาจาก Wikimedia Commons ดูชื่อผู้ถ่ายภาพและใบอนุญาตของแต่ละภาพได้ที่หน้าไฟล์ตามลิงก์ด้านล่าง</p>
+        <ul>
+          <li><a href="https://commons.wikimedia.org/wiki/File:Elephantidae_Loxodonta_africana_4.2.jpg" rel="noopener">ช้างแอฟริกา</a></li>
+          <li><a href="https://commons.wikimedia.org/wiki/File:Emperor_Penguin_Manchot_empereur.jpg" rel="noopener">เพนกวินจักรพรรดิ</a></li>
+          <li><a href="https://commons.wikimedia.org/wiki/File:Barn_Owl,_Lancashire.jpg" rel="noopener">นกแสก</a></li>
+          <li><a href="https://commons.wikimedia.org/wiki/File:Vulpes_vulpes_ssp_fulvus.jpg" rel="noopener">สุนัขจิ้งจอกแดง</a></li>
+          <li><a href="https://commons.wikimedia.org/wiki/File:Green_Sea_Turtle_grazing_seagrass.jpg" rel="noopener">เต่าทะเล</a></li>
+          <li><a href="https://commons.wikimedia.org/wiki/File:Giant_Panda_2004-03-2.jpg" rel="noopener">แพนด้ายักษ์</a></li>
+        </ul>
+      </details>
+    </div>
+  </footer>
+
+  <script src="member.js"></script>
+  <script>
+    // ถ้ารูปถ่ายโหลดไม่ได้ ให้ใช้ภาพวาดสำรองในโฟลเดอร์ assets แทน
+    document.querySelectorAll("img[data-fallback]").forEach(function (img) {
+      function useFallback() {
+        if (img.dataset.used) return;
+        img.dataset.used = "1";
+        img.src = img.dataset.fallback;
+      }
+      img.addEventListener("error", useFallback);
+      if (img.complete && img.naturalWidth === 0) useFallback();
+    });
+
+    // สุ่มเรื่องน่ารู้
+    var facts = [
+      "ปลาหมึกยักษ์มีหัวใจ 3 ดวง",
+      "ยีราฟมีกระดูกคอ 7 ข้อ เท่ากับคนเรา เพียงแต่แต่ละข้อยาวกว่ามาก",
+      "ฮัมมิงเบิร์ดเป็นนกที่บินถอยหลังได้",
+      "นากทะเลนอนหลับโดยจับมือกันไว้ เพื่อไม่ให้ลอยห่างจากกัน",
+      "วอมแบตขับถ่ายเป็นก้อนทรงลูกบาศก์",
+      "โคอาลานอนวันละประมาณ 18 ถึง 22 ชั่วโมง"
+    ];
+    var factEl = document.getElementById("fact");
+    var idx = 0;
+    document.getElementById("next-fact").addEventListener("click", function () {
+      var next;
+      do { next = Math.floor(Math.random() * facts.length); } while (next === idx);
+      idx = next;
+      factEl.textContent = facts[idx];
+    });
+  </script>
+</body>
+</html>
