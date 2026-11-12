@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>สมัครสมาชิก | โลกสัตว์น่ารู้</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@600;700&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#form">ข้ามไปแบบฟอร์ม</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>โลกสัตว์น่ารู้</a>
+      <nav aria-label="เมนูหลัก">
+        <ul class="nav">
+          <li><a class="nav-home" href="index.html">หน้าแรก</a></li>
+          <li><a href="animals.html">สัตว์น่ารู้</a></li>
+          <li><a class="nav-cta" href="register.html" aria-current="page">สมัครสมาชิก</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="reg">
+    <div class="wrap">
+      <div class="reg-side">
+        <h1>สมัครสมาชิก</h1>
+        <p class="lead">สมัครฟรี ใช้เวลาไม่ถึงหนึ่งนาที</p>
+        <figure>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Giant_Panda_2004-03-2.jpg?width=700"
+               data-fallback="assets/panda.svg" alt="ภาพถ่ายแพนด้ายักษ์" width="340" height="425">
+        </figure>
+        <ul class="perks">
+          <li>รับบทความใหม่เกี่ยวกับสัตว์</li>
+          <li>รับข่าวสารและเรื่องน่ารู้ก่อนใคร</li>
+        </ul>
+      </div>
+
+      <div class="form-card">
+        <form id="form" novalidate>
+          <h2>กรอกข้อมูลของคุณ</h2>
+          <p class="sub">เป็นสมาชิกอยู่แล้ว? <a href="login.html">เข้าสู่ระบบ</a></p>
+          <p class="sub">ช่องที่ไม่มีคำว่า "ไม่บังคับ" ต้องกรอกทุกช่อง</p>
+
+          <div class="field">
+            <label for="name">ชื่อ-นามสกุล</label>
+            <input type="text" id="name" name="name" maxlength="100" autocomplete="name" aria-describedby="name-err">
+            <div class="err" id="name-err"></div>
+          </div>
+
+          <div class="field">
+            <label for="email">อีเมล</label>
+            <input type="email" id="email" name="email" maxlength="120" autocomplete="email" aria-describedby="email-err">
+            <div class="err" id="email-err"></div>
+          </div>
+
+          <div class="field">
+            <label for="phone">เบอร์โทรศัพท์</label>
+            <input type="tel" id="phone" name="phone" inputmode="numeric" placeholder="0812345678" maxlength="12" autocomplete="tel" aria-describedby="phone-err">
+            <div class="err" id="phone-err"></div>
+          </div>
+
+          <div class="field">
+            <label for="password">รหัสผ่าน</label>
+            <input type="password" id="password" name="password" maxlength="100" autocomplete="new-password" aria-describedby="password-err">
+            <div class="err" id="password-err">ใช้อย่างน้อย 8 ตัวอักษร</div>
+          </div>
+
+          <div class="field">
+            <label for="password2">ยืนยันรหัสผ่าน</label>
+            <input type="password" id="password2" name="password2" maxlength="100" autocomplete="new-password" aria-describedby="password2-err">
+            <div class="err" id="password2-err"></div>
+          </div>
+
+          <div class="field">
+            <label for="birthdate">วันเกิด <span class="opt">(ไม่บังคับ)</span></label>
+            <input type="date" id="birthdate" name="birthdate">
+          </div>
+
+          <div class="field">
+            <label for="source">รู้จักเราจากช่องทางไหน <span class="opt">(ไม่บังคับ)</span></label>
+            <select id="source" name="source">
+              <option value="">เลือกช่องทาง</option>
+              <option>Facebook</option>
+              <option>Instagram</option>
+              <option>LINE</option>
+              <option>เพื่อนหรือคนรู้จัก</option>
+              <option>YouTube</option>
+              <option>อื่น ๆ</option>
+            </select>
+          </div>
+
+          <!-- ช่องดักบอท: คนจริงมองไม่เห็นและจะไม่กรอก -->
+          <div class="hp" aria-hidden="true">
+            <label for="website">Website</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <label class="consent">
+            <input type="checkbox" id="consent" name="consent" value="yes" aria-describedby="consent-err">
+            <span>ข้าพเจ้ายินยอมให้เก็บและใช้ข้อมูลส่วนบุคคลเพื่อการเป็นสมาชิกและการติดต่อสื่อสารตามนโยบายความเป็นส่วนตัว (PDPA)</span>
+          </label>
+          <div class="err" id="consent-err"></div>
+
+          <button class="btn btn-moss" id="submit" type="submit">สมัครสมาชิก</button>
+          <div class="banner" id="banner" role="alert"></div>
+        </form>
+
+        <div class="done" id="done" hidden>
+          <div class="badge" aria-hidden="true"></div>
+          <h2>สมัครสมาชิกแล้ว</h2>
+          <p>รหัสสมาชิกของคุณคือ</p>
+          <p class="member-id" id="member-id"></p>
+          <p>เก็บรหัสนี้ไว้ใช้อ้างอิง ครั้งหน้าเข้าสู่ระบบด้วยอีเมลและรหัสผ่านที่ตั้งไว้</p>
+          <a class="btn btn-sun" href="member.html">ไปที่เมนูสมาชิก</a>
+          <a class="btn btn-line" href="index.html">กลับหน้าแรก</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="copy">© 2026 โลกสัตว์น่ารู้ สงวนลิขสิทธิ์</p>
+      <p class="credits">ภาพแพนด้าจาก <a href="https://commons.wikimedia.org/wiki/File:Giant_Panda_2004-03-2.jpg" rel="noopener">Wikimedia Commons</a> ดูผู้ถ่ายภาพและใบอนุญาตได้ที่หน้าไฟล์</p>
+    </div>
+  </footer>
+
+  <script src="member.js"></script>
+  <script>
+    // ==== ใส่ URL ของ Web App จาก Google Apps Script ตรงนี้ ====
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyyLWGA2-D9tV-wp8mQyQ_N1W4A3EtVuPwCvgKEPW4FSvUbcyYO9DnW99yhr6h14DwDow/exec";
+    // ==========================================================
+
+    // รูปสำรองกรณีรูปถ่ายโหลดไม่ได้
+    document.querySelectorAll("img[data-fallback]").forEach(function (img) {
+      function useFallback() {
+        if (img.dataset.used) return;
+        img.dataset.used = "1";
+        img.src = img.dataset.fallback;
+      }
+      img.addEventListener("error", useFallback);
+      if (img.complete && img.naturalWidth === 0) useFallback();
+    });
+
+    const form = document.getElementById("form");
+    const btn = document.getElementById("submit");
+    const banner = document.getElementById("banner");
+    const done = document.getElementById("done");
+
+    const rules = {
+      name: function (v) { return v.trim() ? "" : "กรอกชื่อ-นามสกุล"; },
+      email: function (v) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? "" : "กรอกอีเมลให้ถูกต้อง เช่น name@example.com";
+      },
+      password: function (v) { return v.length >= 8 ? "" : "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร"; },
+      password2: function (v) { return v === document.getElementById("password").value ? "" : "รหัสผ่านไม่ตรงกัน"; },
+      phone: function (v) {
+        return /^0\d{8,9}$/.test(v.replace(/[\s-]/g, "")) ? "" : "กรอกเบอร์โทร 9–10 หลัก ขึ้นต้นด้วย 0";
+      }
+    };
+
+    function setError(id, text) {
+      const input = document.getElementById(id);
+      document.getElementById(id + "-err").textContent = text;
+      if (input.type !== "checkbox") input.setAttribute("aria-invalid", text ? "true" : "false");
+    }
+
+    function checkField(id) {
+      const err = rules[id](document.getElementById(id).value);
+      setError(id, err);
+      return !err;
+    }
+
+    function checkConsent() {
+      const ok = document.getElementById("consent").checked;
+      setError("consent", ok ? "" : "ติ๊กยอมรับการเก็บข้อมูลส่วนบุคคลก่อนสมัคร");
+      return ok;
+    }
+
+    Object.keys(rules).forEach(function (id) {
+      const el = document.getElementById(id);
+      el.addEventListener("blur", function () { if (el.value) checkField(id); });
+      el.addEventListener("input", function () {
+        if (el.getAttribute("aria-invalid") === "true") checkField(id);
+      });
+    });
+    document.getElementById("consent").addEventListener("change", checkConsent);
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      banner.className = "banner";
+
+      const results = Object.keys(rules).map(function (id) { return [id, checkField(id)]; });
+      const consentOk = checkConsent();
+      const firstBad = results.find(function (r) { return !r[1]; });
+      if (firstBad) { document.getElementById(firstBad[0]).focus(); return; }
+      if (!consentOk) { document.getElementById("consent").focus(); return; }
+
+      if (SCRIPT_URL.startsWith("PASTE_")) {
+        banner.textContent = "ยังไม่ได้ตั้งค่า SCRIPT_URL ในไฟล์ register.html";
+        banner.className = "banner show";
+        return;
+      }
+
+      const data = Object.fromEntries(new FormData(form).entries());
+      data.name = data.name.trim();
+      data.email = data.email.trim();
+      data.phone = data.phone.replace(/[\s-]/g, "");
+      delete data.password2;
+      data.action = "register";
+
+      btn.disabled = true;
+      btn.textContent = "กำลังส่งข้อมูล...";
+      try {
+        const res = await fetch(SCRIPT_URL, {
+          method: "POST",
+          body: new URLSearchParams(data)
+        });
+        const result = await res.json();
+        if (result.ok) {
+          window.Member.set({ name: data.name, memberId: result.memberId }); // สมัครแล้วเข้าสู่ระบบให้ทันที
+          form.hidden = true;
+          document.getElementById("member-id").textContent = result.memberId;
+          done.hidden = false;
+          done.scrollIntoView({ block: "center" });
+        } else {
+          banner.textContent = result.error || "ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง";
+          banner.className = "banner show";
+        }
+      } catch (err) {
+        banner.textContent = "เชื่อมต่อไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่อีกครั้ง";
+        banner.className = "banner show";
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "สมัครสมาชิก";
+      }
+    });
+  </script>
+</body>
+</html>
