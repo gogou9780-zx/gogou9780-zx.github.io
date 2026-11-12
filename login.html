@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>เข้าสู่ระบบ | โลกสัตว์น่ารู้</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@600;700&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#form">ข้ามไปแบบฟอร์ม</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>โลกสัตว์น่ารู้</a>
+      <nav aria-label="เมนูหลัก">
+        <ul class="nav">
+          <li><a class="nav-home" href="index.html">หน้าแรก</a></li>
+          <li><a href="animals.html">สัตว์น่ารู้</a></li>
+          <li><a class="nav-cta" href="register.html">สมัครสมาชิก</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="reg">
+    <div class="wrap">
+      <div class="reg-side">
+        <h1>เข้าสู่ระบบ</h1>
+        <p class="lead">ยินดีต้อนรับกลับ ใช้อีเมลและรหัสผ่านที่สมัครไว้</p>
+        <figure>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Vulpes_vulpes_ssp_fulvus.jpg?width=700"
+               data-fallback="assets/fox.svg" alt="ภาพถ่ายสุนัขจิ้งจอกแดง" width="340" height="425">
+        </figure>
+      </div>
+
+      <div class="form-card">
+        <form id="form" novalidate>
+          <h2>กรอกข้อมูลเพื่อเข้าสู่ระบบ</h2>
+
+          <div class="field">
+            <label for="email">อีเมล</label>
+            <input type="email" id="email" name="email" maxlength="120" autocomplete="email" aria-describedby="email-err">
+            <div class="err" id="email-err"></div>
+          </div>
+
+          <div class="field">
+            <label for="password">รหัสผ่าน</label>
+            <input type="password" id="password" name="password" maxlength="100" autocomplete="current-password" aria-describedby="password-err">
+            <div class="err" id="password-err"></div>
+          </div>
+
+          <button class="btn btn-moss" id="submit" type="submit">เข้าสู่ระบบ</button>
+          <div class="banner" id="banner" role="alert"></div>
+          <p class="sub" style="margin-top:18px">ยังไม่เป็นสมาชิก? <a href="register.html">สมัครสมาชิกฟรี</a></p>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap"><p class="copy">© 2026 โลกสัตว์น่ารู้ สงวนลิขสิทธิ์</p></div>
+  </footer>
+
+  <script src="member.js"></script>
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9MrlHOiTx-uY72lWZVHYC5OQbT-tWds7i1vBRvKDuC4JZIwFBo9xXd4HTMzFydhqfqw/exec";
+
+    document.querySelectorAll("img[data-fallback]").forEach(function (img) {
+      function useFallback() { if (img.dataset.used) return; img.dataset.used = "1"; img.src = img.dataset.fallback; }
+      img.addEventListener("error", useFallback);
+      if (img.complete && img.naturalWidth === 0) useFallback();
+    });
+
+    // ถ้าล็อกอินอยู่แล้ว ไปเมนูสมาชิกเลย
+    if (window.Member.get()) location.replace("member.html");
+
+    const form = document.getElementById("form");
+    const btn = document.getElementById("submit");
+    const banner = document.getElementById("banner");
+
+    function setError(id, text) {
+      document.getElementById(id + "-err").textContent = text;
+      document.getElementById(id).setAttribute("aria-invalid", text ? "true" : "false");
+    }
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      banner.className = "banner";
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      const emailBad = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? "" : "กรอกอีเมลให้ถูกต้อง";
+      const passBad = password ? "" : "กรอกรหัสผ่าน";
+      setError("email", emailBad);
+      setError("password", passBad);
+      if (emailBad) { document.getElementById("email").focus(); return; }
+      if (passBad) { document.getElementById("password").focus(); return; }
+
+      btn.disabled = true;
+      btn.textContent = "กำลังตรวจสอบ...";
+      try {
+        const res = await fetch(SCRIPT_URL, {
+          method: "POST",
+          body: new URLSearchParams({ action: "login", email: email, password: password })
+        });
+        const result = await res.json();
+        if (result.ok) {
+          window.Member.set({ name: result.name, memberId: result.memberId });
+          location.href = "member.html";
+        } else {
+          banner.textContent = result.error || "เข้าสู่ระบบไม่สำเร็จ";
+          banner.className = "banner show";
+        }
+      } catch (err) {
+        banner.textContent = "เชื่อมต่อไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่อีกครั้ง";
+        banner.className = "banner show";
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "เข้าสู่ระบบ";
+      }
+    });
+  </script>
+</body>
+</html>
