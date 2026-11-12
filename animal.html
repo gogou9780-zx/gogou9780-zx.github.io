@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>สัตว์น่ารู้ | โลกสัตว์น่ารู้</title>
+  <meta name="description" content="รวมสัตว์หลากหลายกลุ่ม พร้อมภาพถ่ายและความรู้สั้น ๆ ค้นหาและกรองตามกลุ่มได้">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@600;700&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#list">ข้ามไปรายการสัตว์</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>โลกสัตว์น่ารู้</a>
+      <nav aria-label="เมนูหลัก">
+        <ul class="nav">
+          <li><a class="nav-home" href="index.html">หน้าแรก</a></li>
+          <li><a href="animals.html" aria-current="page">สัตว์น่ารู้</a></li>
+          <li><a class="nav-cta" href="register.html">สมัครสมาชิก</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="gallery">
+    <div class="wrap">
+      <div class="section-head">
+        <h1 class="page-title">สัตว์น่ารู้</h1>
+        <p>สัตว์ 20 ชนิดจาก 6 กลุ่ม พิมพ์ชื่อเพื่อค้นหา หรือเลือกกลุ่มที่สนใจ</p>
+      </div>
+
+      <div class="toolbar">
+        <div class="search">
+          <label class="sr-only" for="q">ค้นหาสัตว์</label>
+          <input type="search" id="q" placeholder="ค้นหาชื่อสัตว์ เช่น ช้าง" autocomplete="off">
+        </div>
+        <div class="chips" id="chips" role="group" aria-label="กรองตามกลุ่มสัตว์"></div>
+      </div>
+
+      <p class="count" id="count" role="status"></p>
+
+      <div class="animal-grid" id="list"></div>
+
+      <div class="empty" id="empty" hidden>
+        <p>ไม่พบสัตว์ที่ตรงกับคำค้นหา ลองพิมพ์ชื่ออื่น หรือล้างตัวกรอง</p>
+        <button class="btn btn-moss" type="button" id="reset">ล้างตัวกรอง</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="copy">© 2026 โลกสัตว์น่ารู้ สงวนลิขสิทธิ์</p>
+      <details class="credits">
+        <summary>ที่มาของภาพถ่าย</summary>
+        <p>ภาพถ่ายทั้งหมดมาจาก Wikimedia Commons ดูชื่อผู้ถ่ายภาพและใบอนุญาตของแต่ละภาพได้ที่หน้าไฟล์ตามลิงก์ด้านล่าง</p>
+        <ul id="credits"></ul>
+      </details>
+    </div>
+  </footer>
+
+  <script src="member.js"></script>
+  <script>
+    // ==== รายชื่อสัตว์ทั้งหมด ====
+    // เพิ่มสัตว์ใหม่: คัดลอกบรรทัดใดบรรทัดหนึ่ง แล้วแก้ค่า
+    //   name = ชื่อสัตว์, group = กลุ่ม (ดู GROUPS ด้านล่าง), fact = ความรู้สั้น ๆ
+    //   file = ชื่อไฟล์รูปบน Wikimedia Commons (ส่วนหลัง "File:" ในลิงก์หน้าไฟล์)
+    //   fallback = ภาพวาดสำรองในโฟลเดอร์ assets (ไม่ใส่ก็ได้)
+    var COMMONS = "https://commons.wikimedia.org/wiki/Special:FilePath/";
+    var GROUPS = {
+      mammal: "สัตว์เลี้ยงลูกด้วยนม",
+      bird: "นก",
+      reptile: "สัตว์เลื้อยคลาน",
+      amphibian: "สัตว์สะเทินน้ำสะเทินบก",
+      fish: "ปลา",
+      invertebrate: "สัตว์ไม่มีกระดูกสันหลัง"
+    };
+    var ANIMALS = [
+      { name: "ช้าง", group: "mammal", file: "Elephantidae_Loxodonta_africana_4.2.jpg", fallback: "assets/elephant.svg",
+        fact: "ช้างแอฟริกาเป็นสัตว์บกที่ใหญ่ที่สุดในโลก งวงใช้ได้ทั้งหายใจ ดื่มน้ำ หยิบจับ และทักทายกัน ส่วนช้างไทยเป็นสัตว์ประจำชาติของไทย" },
+      { name: "เสือโคร่ง", group: "mammal", file: "Royal_Bengal_Tiger.jpg",
+        fact: "เป็นแมวป่าที่ใหญ่ที่สุดในโลก ลายบนตัวของแต่ละตัวไม่เหมือนกัน เหมือนลายนิ้วมือของคน" },
+      { name: "ยีราฟ", group: "mammal", file: "Giraffa_camelopardalis_angolensis.jpg",
+        fact: "เป็นสัตว์ที่สูงที่สุดในโลก ลิ้นยาวมาก ใช้ม้วนใบไม้จากยอดไม้สูง ๆ มากิน" },
+      { name: "โลมา", group: "mammal", file: "Tursiops_truncatus_01.jpg",
+        fact: "ส่งเสียงคลิกออกไปแล้วฟังเสียงสะท้อนกลับ เพื่อหาทางและหาอาหารใต้น้ำ" },
+      { name: "จิงโจ้", group: "mammal", file: "Red_kangaroo.jpg",
+        fact: "กระโดดด้วยขาหลังที่แข็งแรง ลูกอ่อนตัวเล็กมากตอนเกิด แล้วอาศัยอยู่ในกระเป๋าหน้าท้องของแม่ต่อ" },
+      { name: "สุนัขจิ้งจอกแดง", group: "mammal", file: "Vulpes_vulpes_ssp_fulvus.jpg", fallback: "assets/fox.svg",
+        fact: "หูไวมาก ได้ยินเสียงเหยื่อตัวเล็กที่เคลื่อนไหวอยู่ไกล ๆ และปรับตัวอยู่ได้ในหลายสภาพแวดล้อม" },
+      { name: "แพนด้ายักษ์", group: "mammal", file: "Giant_Panda_2004-03-2.jpg", fallback: "assets/panda.svg",
+        fact: "กินไผ่เป็นอาหารหลัก และใช้เวลากินหลายชั่วโมงต่อวัน พบตามธรรมชาติในประเทศจีน" },
+
+      { name: "เพนกวิน", group: "bird", file: "Emperor_Penguin_Manchot_empereur.jpg", fallback: "assets/penguin.svg",
+        fact: "บินไม่ได้ แต่ว่ายน้ำเก่งมาก ใช้ปีกพายน้ำเหมือนครีบ ส่วนใหญ่อาศัยอยู่ในซีกโลกใต้" },
+      { name: "นกแสก", group: "bird", file: "Barn_Owl,_Lancashire.jpg", fallback: "assets/owl.svg",
+        fact: "ลูกตาขยับไม่ได้ แต่หมุนหัวได้ไกลประมาณ 270 องศา และได้ยินเสียงเหยื่อได้แม่นแม้ในที่มืด" },
+      { name: "นกยูง", group: "bird", file: "Indian_Peacock_or_peacock.jpg",
+        fact: "นกยูงตัวผู้มีขนหางยาวเป็นพัด ใช้รำแพนเพื่อเรียกความสนใจจากตัวเมีย" },
+      { name: "นกฟลามิงโก", group: "bird", file: "Greater_Flamingo_(Phoenicopterus_roseus)_(8521269688).jpg",
+        fact: "สีชมพูของขนมาจากสารสีในอาหารที่กิน เช่น สัตว์น้ำเล็ก ๆ และสาหร่าย" },
+      { name: "นกเงือก", group: "bird", file: "Great-Hornbill.jpg",
+        fact: "จะงอยปากใหญ่และมีโหนกบนหัว ตัวเมียทำรังในโพรงไม้ แล้วตัวผู้คอยนำอาหารมาให้ พบในป่าของไทยด้วย" },
+
+      { name: "เต่าทะเล", group: "reptile", file: "Green_Sea_Turtle_grazing_seagrass.jpg", fallback: "assets/turtle.svg",
+        fact: "กระดองเป็นส่วนหนึ่งของโครงกระดูก ติดอยู่กับซี่โครงและกระดูกสันหลัง จึงถอดออกไม่ได้เหมือนเสื้อ" },
+      { name: "จระเข้น้ำเค็ม", group: "reptile", file: "Saltwater_Crocodile_(Crocodylus_porosus)_(10106331165).jpg",
+        fact: "เป็นสัตว์เลื้อยคลานที่ใหญ่ที่สุดในโลก ว่ายน้ำเก่ง และอยู่ได้ทั้งในน้ำจืดและน้ำเค็ม" },
+      { name: "กิ้งก่าคาเมเลียน", group: "reptile", file: "Chamaeleo_calyptratus_01.jpg",
+        fact: "กลอกตาแต่ละข้างได้อิสระ และพุ่งลิ้นยาว ๆ ออกไปจับแมลง" },
+
+      { name: "กบตาแดง", group: "amphibian", file: "Agalychnis_callidryas.jpg",
+        fact: "กลางวันมันหลับโดยหุบตาและเกาะใบไม้ เชื่อกันว่าตาสีแดงสดช่วยทำให้ศัตรูตกใจเมื่อมันลืมตาขึ้นมา" },
+
+      { name: "ปลาการ์ตูน", group: "fish", file: "Common_clownfish.jpg",
+        fact: "อาศัยอยู่ในดงดอกไม้ทะเลได้ เพราะมีเมือกที่ช่วยให้ไม่ถูกพิษของดอกไม้ทะเล" },
+      { name: "ม้าน้ำ", group: "fish", file: "Lined_seahorse,_Hippocampus_erectus.jpg",
+        fact: "ตัวผู้เป็นฝ่ายอุ้มท้องและคลอดลูก โดยตัวเมียวางไข่ไว้ในถุงหน้าท้องของตัวผู้" },
+
+      { name: "ผีเสื้อมอนาร์ค", group: "invertebrate", file: "Monarch_Butterfly_Danaus_plexippus_on_Echinacea_purpurea_2800px.jpg",
+        fact: "บินอพยพไกลหลายพันกิโลเมตรในอเมริกาเหนือ เพื่อหนีอากาศหนาว" },
+      { name: "หมึกสาย", group: "invertebrate", file: "Common_octopus.jpg",
+        fact: "มีหัวใจ 3 ดวง และเลือดเป็นสีฟ้า (ในภาษาพูดมักเรียกว่าปลาหมึกยักษ์)" }
+    ];
+
+    var state = { group: "all", q: "" };
+    var list = document.getElementById("list");
+    var chipsBox = document.getElementById("chips");
+    var countEl = document.getElementById("count");
+    var emptyEl = document.getElementById("empty");
+    var input = document.getElementById("q");
+
+    // ปุ่มกรองกลุ่ม
+    var chipKeys = ["all"].concat(Object.keys(GROUPS));
+    chipsBox.innerHTML = chipKeys.map(function (k) {
+      var label = k === "all" ? "ทั้งหมด" : GROUPS[k];
+      return '<button class="chip" type="button" data-group="' + k + '" aria-pressed="' + (k === "all") + '">' + label + '</button>';
+    }).join("");
+
+    // การ์ดสัตว์
+    list.innerHTML = ANIMALS.map(function (a, n) {
+      var img = '<img ' + (n > 5 ? 'loading="lazy" ' : '') +
+        'src="' + COMMONS + a.file + '?width=700" data-fallback="' + (a.fallback || "assets/placeholder.svg") +
+        '" alt="ภาพถ่าย' + a.name + '" width="500" height="625">';
+      return '<article class="animal" data-group="' + a.group + '" data-search="' + (a.name + " " + GROUPS[a.group]) + '">' +
+        '<figure>' + img + '</figure>' +
+        '<h3>' + a.name + '</h3>' +
+        '<p class="kind">' + GROUPS[a.group] + '</p>' +
+        '<p>' + a.fact + '</p></article>';
+    }).join("");
+
+    // ถ้ารูปถ่ายโหลดไม่ได้ ให้ใช้ภาพสำรองแทน
+    document.querySelectorAll("img[data-fallback]").forEach(function (img) {
+      function useFallback() {
+        if (img.dataset.used) return;
+        img.dataset.used = "1";
+        img.src = img.dataset.fallback;
+      }
+      img.addEventListener("error", useFallback);
+      if (img.complete && img.naturalWidth === 0) useFallback();
+    });
+
+    // รายการเครดิตรูป
+    document.getElementById("credits").innerHTML = ANIMALS.map(function (a) {
+      return '<li><a href="https://commons.wikimedia.org/wiki/File:' + a.file + '" rel="noopener">' + a.name + '</a></li>';
+    }).join("");
+
+    var cards = list.querySelectorAll(".animal");
+    var chips = chipsBox.querySelectorAll(".chip");
+
+    function apply() {
+      var q = state.q.trim().toLowerCase();
+      var shown = 0;
+      cards.forEach(function (card) {
+        var okGroup = state.group === "all" || card.dataset.group === state.group;
+        var okText = !q || card.dataset.search.toLowerCase().indexOf(q) !== -1;
+        var show = okGroup && okText;
+        card.hidden = !show;
+        if (show) shown++;
+      });
+      chips.forEach(function (c) { c.setAttribute("aria-pressed", c.dataset.group === state.group ? "true" : "false"); });
+      countEl.textContent = "แสดง " + shown + " จาก " + cards.length + " ชนิด";
+      emptyEl.hidden = shown !== 0;
+    }
+
+    chips.forEach(function (chip) {
+      chip.addEventListener("click", function () { state.group = chip.dataset.group; apply(); });
+    });
+    input.addEventListener("input", function () { state.q = input.value; apply(); });
+    document.getElementById("reset").addEventListener("click", function () {
+      state.group = "all"; state.q = ""; input.value = ""; apply(); input.focus();
+    });
+
+    apply();
+  </script>
+</body>
+</html>
