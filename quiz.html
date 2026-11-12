@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>แบบทดสอบสัตว์ | โลกสัตว์น่ารู้</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@600;700&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">ข้ามไปเนื้อหา</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>โลกสัตว์น่ารู้</a>
+      <nav aria-label="เมนูหลัก">
+        <ul class="nav">
+          <li><a class="nav-home" href="index.html">หน้าแรก</a></li>
+          <li><a href="animals.html">สัตว์น่ารู้</a></li>
+          <li><a class="nav-cta" href="register.html">สมัครสมาชิก</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="quiz" id="main">
+    <div class="wrap">
+      <h1 class="quiz-title">แบบทดสอบสัตว์</h1>
+      <div id="quiz-box"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="copy">© 2026 โลกสัตว์น่ารู้ สงวนลิขสิทธิ์</p>
+    </div>
+  </footer>
+
+  <script src="member.js"></script>
+  <script>
+    var questions = [
+      { q: "สัตว์ชนิดใดเป็นสัตว์บกที่ใหญ่ที่สุดในโลก?",
+        options: ["ช้างแอฟริกา", "ยีราฟ", "แรด", "ฮิปโปโปเตมัส"], answer: 0,
+        explain: "ช้างแอฟริกาตัวใหญ่ที่สุดในบรรดาสัตว์บก" },
+      { q: "เพนกวินอยู่ในกลุ่มสัตว์ใด?",
+        options: ["ปลา", "สัตว์เลื้อยคลาน", "สัตว์เลี้ยงลูกด้วยนม", "นก"], answer: 3,
+        explain: "เพนกวินเป็นนกที่บินไม่ได้ แต่ว่ายน้ำเก่ง" },
+      { q: "นกฮูกหมุนหัวได้ไกลประมาณกี่องศา?",
+        options: ["270 องศา", "180 องศา", "90 องศา", "360 องศา"], answer: 0,
+        explain: "ลูกตาของนกฮูกขยับไม่ได้ จึงชดเชยด้วยการหมุนหัวได้ไกล" },
+      { q: "กระดองของเต่าเป็นส่วนหนึ่งของอะไร?",
+        options: ["เปลือกที่ติดอยู่เฉย ๆ", "โครงกระดูก", "เกล็ด", "ขน"], answer: 1,
+        explain: "กระดองติดอยู่กับซี่โครงและกระดูกสันหลัง จึงถอดออกไม่ได้" },
+      { q: "ยีราฟมีกระดูกคอกี่ข้อ?",
+        options: ["5 ข้อ", "12 ข้อ", "7 ข้อ", "20 ข้อ"], answer: 2,
+        explain: "เท่ากับคนเรา เพียงแต่แต่ละข้อยาวกว่ามาก" },
+      { q: "อาหารหลักของแพนด้ายักษ์คืออะไร?",
+        options: ["ปลา", "ผลไม้", "เนื้อสัตว์", "ไผ่"], answer: 3,
+        explain: "แพนด้าใช้เวลากินไผ่หลายชั่วโมงต่อวัน" }
+    ];
+
+    var box = document.getElementById("quiz-box");
+    var i = 0, score = 0, checked = false;
+
+    function render() {
+      var q = questions[i];
+      checked = false;
+      var opts = q.options.map(function (text, n) {
+        return '<div class="q-option"><label><input type="radio" name="a" value="' + n + '"> <span>' + text + '</span></label></div>';
+      }).join("");
+
+      box.innerHTML =
+        '<p class="q-progress">ข้อ ' + (i + 1) + ' จาก ' + questions.length + '</p>' +
+        '<form id="qform" novalidate>' +
+          '<fieldset class="q-set"><legend class="q-text">' + q.q + '</legend>' +
+          '<div class="q-options">' + opts + '</div></fieldset>' +
+          '<p class="q-feedback" id="fb" role="status"></p>' +
+          '<div class="q-actions"><button class="btn btn-moss" type="submit" id="act">ตรวจคำตอบ</button></div>' +
+        '</form>';
+
+      if (i > 0) box.querySelector("input").focus();
+
+      document.getElementById("qform").addEventListener("submit", function (e) {
+        e.preventDefault();
+        var fb = document.getElementById("fb");
+        var act = document.getElementById("act");
+
+        if (!checked) {
+          var sel = box.querySelector("input[name=a]:checked");
+          if (!sel) { fb.textContent = "เลือกคำตอบก่อน แล้วกดตรวจคำตอบ"; return; }
+          var pick = Number(sel.value);
+          checked = true;
+
+          box.querySelectorAll(".q-option").forEach(function (el, n) {
+            el.querySelector("input").disabled = true;
+            if (n === q.answer) el.classList.add("correct");
+            else if (n === pick) el.classList.add("wrong");
+          });
+
+          if (pick === q.answer) {
+            score++;
+            fb.textContent = "ถูกต้อง! " + q.explain;
+          } else {
+            fb.textContent = "ยังไม่ถูก คำตอบคือ “" + q.options[q.answer] + "” " + q.explain;
+          }
+          act.textContent = (i === questions.length - 1) ? "ดูผลคะแนน" : "ข้อต่อไป";
+        } else {
+          i++;
+          if (i < questions.length) render(); else finish();
+        }
+      });
+    }
+
+    function finish() {
+      var msg = score >= 5 ? "เก่งมาก รู้เรื่องสัตว์เยอะเลย"
+              : score >= 3 ? "ทำได้ดี ลองอ่านเรื่องสัตว์เพิ่มแล้วทำอีกครั้ง"
+              : "ไม่เป็นไร กลับไปอ่านเรื่องสัตว์แล้วลองใหม่ได้เลย";
+      var hasMember = !!window.Member.get();
+      box.innerHTML =
+        '<p class="q-progress">ผลคะแนน</p>' +
+        '<p class="score" role="status">' + score + ' / ' + questions.length + '</p>' +
+        '<p>' + msg + '</p>' +
+        '<div class="q-actions">' +
+          '<button class="btn btn-sun" type="button" id="again">ทำอีกครั้ง</button>' +
+          (hasMember
+            ? '<a class="btn btn-line" href="member.html">กลับเมนูสมาชิก</a>'
+            : '<a class="btn btn-line" href="animals.html">ดูสัตว์ทั้งหมด</a>') +
+        '</div>';
+      var again = document.getElementById("again");
+      again.addEventListener("click", function () { i = 0; score = 0; render(); });
+      again.focus();
+    }
+
+    render();
+  </script>
+</body>
+</html>
